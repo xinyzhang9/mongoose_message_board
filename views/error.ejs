@@ -1,0 +1,5 @@
+ <% if(typeof(errors) != 'undefined' ) { %>
+     <% for (var x in errors) { %>
+      <h3><%= errors[x].message%></h3>
+     <% } %>
+ <% } %>

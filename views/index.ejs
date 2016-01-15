@@ -1,0 +1,73 @@
+<html>
+<head>
+<title>message board</title>
+<style>
+    #res{
+        color: red;
+    }
+    #playground{
+        padding: 10px;
+
+    }
+    input{
+        margin: 5px;
+    }
+    h4{
+        color: green;
+    }
+    h5{
+        color: orange;
+    }
+
+</style>
+<!--     <link rel='stylesheet' href='/stylesheets/style.css' /> -->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script type ="text/javascript">
+        $(document).ready(function (){
+
+        })
+    </script>
+</head>
+<body>
+    <div id = 'errors'></div>
+    <div id = 'playground'>
+    <fieldset>
+        <legend>Message Board</legend>
+        <form action="/posts" method = "post">
+            <label for="name">Name: </label><br>
+            <input type="text" name = "name"><br>
+            <label for="text">Message:</label><br>
+            <input type="textarea" name = "text"><br>
+            <input type="submit" value = "post message">
+        </form>
+        <% if(typeof(posts) != 'undefined' ) { %>
+            <% for(x in posts){ %>
+                <h4>Name: <%= posts[x].name %></h4>
+                <h4>Messages: <%= posts[x].text %></h4>
+                <h4>updated at: <%= posts[x].updated_at %></h4>
+                <% if(typeof(posts[x].comments) != 'undefined' ) { %>
+                    <% for(var y=0; y < posts[x].comments.length; y++){ %>
+                        <h5>Name: <%= posts[x].comments[y].name %></h5>
+                        <h5>Comments: <%= posts[x].comments[y].text %></h5>
+                        <h5>updated at: <%= posts[x].comments[y].updated_at %></h5>
+                        <hr>
+                    <% } %>
+                <% } %>
+                <form action="/posts/<%=posts[x]._id%>" method = "post">
+                    <label for="name">Name: </label><br>
+                    <input type="text" name = "name"><br>
+                    <label for="text">Comments:</label><br>
+                    <input type="textarea" name = "text"><br>
+                    <input type="submit" value = "post comment">
+                </form>
+                <hr>
+
+        <% } %>
+    <% } %>
+    </fieldset>
+
+        
+    </div>
+
+</body>
+</html><br>
